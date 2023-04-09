@@ -61,6 +61,7 @@ flutter:
     - assets/images/exchange.svg
     - assets/images/gb_map.svg
     - assets/images/gb_map.png
+    - assets/images/trainOperators/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
