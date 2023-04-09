@@ -1,0 +1,11 @@
+targets:
+  $default:
+    builders:
+      graphql_codegen:
+        options:
+          addTypename: false
+          namingSeparator: "$"
+          scopes:
+            - lib/**
+          clients:
+            - graphql

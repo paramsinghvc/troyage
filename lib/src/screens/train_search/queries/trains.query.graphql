@@ -1,0 +1,35 @@
+query GetArrivalDepartureBoard($payload: BoardInput!) {
+	getArrivalDepartureBoard(payload: $payload) {
+		GetStationBoardResult {
+			generatedAt
+			locationName
+			crs
+			platformAvailable
+			trainServices {
+				service {
+					sta
+					eta
+					std
+					etd
+					platform
+					operator
+					operatorCode
+					serviceType
+					serviceID
+					destination {
+						location {
+							locationName
+							crs
+						}
+					}
+					origin {
+						location {
+							locationName
+							crs
+						}
+					}
+				}
+			}
+		}
+	}
+}
