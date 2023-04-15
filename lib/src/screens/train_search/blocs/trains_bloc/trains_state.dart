@@ -24,11 +24,11 @@ class TrainsState extends Equatable {
 
   const TrainsState.initial() : this._();
 
-  const TrainsState.loading() : this._(status: TrainsStatus.loading);
+  TrainsState loading() => copyWith(status: TrainsStatus.loading);
 
-  const TrainsState.success(TrainsData data) : this._(status: TrainsStatus.success, data: data);
+  TrainsState success(TrainsData data) => copyWith(status: TrainsStatus.success, data: data);
 
-  const TrainsState.failure(String errorMessage) : this._(status: TrainsStatus.failure, errorMessage: errorMessage);
+  TrainsState failure(String errorMessage) => copyWith(status: TrainsStatus.failure, errorMessage: errorMessage);
 
   TrainsState copyWith({
     TrainsStatus? status,

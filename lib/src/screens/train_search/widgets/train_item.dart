@@ -1,6 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:troyage/src/screens/train_search/queries/crs_codes.query.graphql.dart';
+import 'package:troyage/src/screens/train_search/queries/trains.query.graphql.dart';
+
+typedef TrainServiceData = Query$GetDepBoardWithDetails$getDepBoardWithDetails$GetStationBoardResult$trainServices;
 
 class TrainItem extends StatelessWidget {
+  final TrainServiceData? trainServiceData;
+  final Query$GetCRSCodes$getCRSCodes? from;
+  final Query$GetCRSCodes$getCRSCodes? to;
+
+  const TrainItem({super.key, this.trainServiceData, this.from, this.to});
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -21,8 +32,8 @@ class TrainItem extends StatelessWidget {
                   children: [
                     renderStationItem(
                       context,
-                      time: '18:52',
-                      stationName: 'Manchester Piccadilly',
+                      time: trainServiceData?.std,
+                      stationName: (from?.name ?? trainServiceData?.origin?.location?.locationName) ?? '',
                       platformNumber: 1,
                     ),
                     const SizedBox(width: 20),
@@ -32,26 +43,63 @@ class TrainItem extends StatelessWidget {
                     // ),
                     ConstrainedBox(
                       constraints: const BoxConstraints(minWidth: 50, maxWidth: 100, minHeight: 50, maxHeight: 100),
-                      child: Image.asset('assets/images/trainOperators/XR.png'),
+                      child: Image.asset('assets/images/trainOperators/${trainServiceData?.operatorCode ?? 'NR'}.png'),
                     ),
                     const SizedBox(width: 20),
                     renderStationItem(
                       context,
-                      time: '20:30',
-                      stationName: 'London St Pancras International',
+                      time: trainServiceData?.sta,
+                      stationName: (to?.name ?? trainServiceData?.destination?.location?.locationName) ?? '',
                       platformNumber: 6,
                       isOrigin: false,
                     ),
                   ],
                 ),
               ),
+              SizedBox(height: 20),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // SizedBox(
-                  //   height: 30,
-                  //   child: Image.asset('assets/images/trainOperators/LT.png'),
-                  // )
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          trainServiceData?.origin?.location?.crs ?? '',
+                          style: TextStyle(color: Colors.grey.shade600),
+                        ),
+                        Text(
+                          'Origin',
+                          style: TextStyle(color: Colors.grey.shade400, fontSize: 12),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: SizedBox(
+                      height: 12,
+                      child: SvgPicture.asset(
+                        'assets/images/Train.svg',
+                        colorFilter: ColorFilter.mode(Colors.grey.shade400, BlendMode.srcIn),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          trainServiceData?.destination?.location?.crs ?? '',
+                          style: TextStyle(color: Colors.grey.shade600),
+                        ),
+                        Text(
+                          'Destination',
+                          style: TextStyle(color: Colors.grey.shade400, fontSize: 12),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ],

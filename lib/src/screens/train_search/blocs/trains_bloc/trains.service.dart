@@ -4,24 +4,31 @@ import '../../../../../schema.graphql.dart';
 import '../../../../core/graphql_client.dart';
 import '../../queries/trains.query.graphql.dart';
 
-typedef TrainsData = Query$GetArrivalDepartureBoard$getArrivalDepartureBoard$GetStationBoardResult;
+typedef TrainsData = Query$GetDepBoardWithDetails$getDepBoardWithDetails$GetStationBoardResult;
+
+enum TrainDirection {
+  arr("Arr"),
+  dep("Dep");
+
+  const TrainDirection(this.text);
+  final String text;
+}
 
 class TrainsService {
   final TroyageGQLClient _client;
 
   TrainsService({TroyageGQLClient? client}) : _client = client ?? TroyageGQLClient();
 
-  Future<TrainsData?> getTrainsList(Input$BoardInput inputData) async {
-    const String getTrainsQuery = r'''
-      query GetArrivalDepartureBoard($payload: BoardInput!) {
-        getArrivalDepartureBoard(payload: $payload) {
+  Future<TrainsData?> getTrainsList({required Input$BoardInput inputData, required TrainDirection direction}) async {
+    final String getTrainsQuery = '''
+      query Get${direction.text}BoardWithDetails(\$payload: BoardInput!) {
+        get${direction.text}BoardWithDetails(payload: \$payload) {
           GetStationBoardResult {
             generatedAt
             locationName
             crs
             platformAvailable
             trainServices {
-              service {
                 sta
                 eta
                 std
@@ -31,6 +38,23 @@ class TrainsService {
                 operatorCode
                 serviceType
                 serviceID
+                rsid
+                subsequentCallingPoints {
+                  callingPointList {
+                      locationName
+                      crs
+                      st
+                      et								
+                  }
+                }
+                previousCallingPoints {
+                  callingPointList {
+                      locationName
+                      crs
+                      st
+                      et								
+                  }
+                }
                 destination {
                   location {
                     locationName
@@ -45,7 +69,6 @@ class TrainsService {
                 }
               }
             }
-          }
         }
       }
     ''';
@@ -59,8 +82,8 @@ class TrainsService {
     }
 
     if (result.data != null) {
-      final data = Query$GetArrivalDepartureBoard.fromJson(result.data!);
-      return data.getArrivalDepartureBoard.GetStationBoardResult;
+      final data = Query$GetDepBoardWithDetails.fromJson(result.data!);
+      return data.getDepBoardWithDetails.GetStationBoardResult;
     }
 
     return null;

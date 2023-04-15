@@ -1,35 +1,165 @@
-query GetArrivalDepartureBoard($payload: BoardInput!) {
-	getArrivalDepartureBoard(payload: $payload) {
+query GetArrBoardWithDetails($payload: BoardInput!) {
+	getArrBoardWithDetails(payload: $payload) {
 		GetStationBoardResult {
-			generatedAt
-			locationName
-			crs
-			platformAvailable
-			trainServices {
-				service {
-					sta
-					eta
-					std
-					etd
-					platform
-					operator
-					operatorCode
-					serviceType
-					serviceID
-					destination {
-						location {
-							locationName
-							crs
-						}
-					}
-					origin {
-						location {
-							locationName
-							crs
-						}
-					}
-				}
-			}
-		}
+      generatedAt
+      locationName
+      crs
+      platformAvailable
+      trainServices {
+          sta
+          eta
+          std
+          etd
+          platform
+          operator
+          operatorCode
+          serviceType
+          serviceID
+          rsid
+          subsequentCallingPoints {
+            callingPointList {
+                locationName
+                crs
+								st
+								et								
+            }
+          }
+          previousCallingPoints {
+            callingPointList {
+                locationName
+                crs
+								st
+								et								
+            }
+          }
+          destination {
+            location {
+              locationName
+              crs
+            }
+          }
+          origin {
+             location {
+              locationName
+              crs
+            }
+        }
+      }
+    }
 	}
+}
+
+query GetDepBoardWithDetails($payload: BoardInput!) {
+	getDepBoardWithDetails(payload: $payload) {
+		GetStationBoardResult {
+      generatedAt
+      locationName
+      crs
+      platformAvailable
+      trainServices {
+          sta
+          eta
+          std
+          etd
+          platform
+          operator
+          operatorCode
+          serviceType
+          serviceID
+          rsid
+          subsequentCallingPoints {
+            callingPointList {
+                locationName
+                crs
+								st
+								et
+            }
+          }
+          previousCallingPoints {
+            callingPointList {
+                locationName
+                crs
+								st
+								et								
+            }
+          }
+          destination {
+            location {
+              locationName
+              crs
+            }
+          }
+          origin {
+             location {
+              locationName
+              crs
+            }
+        }
+      }
+    }
+	}
+}
+
+query GetTrains($payload: TrainsQueryInput!) {
+  getTrains(payload: $payload) {
+    generatedAt
+    trainServices {
+      sta
+      eta
+      std
+      etd
+      platform
+      operator
+      operatorCode
+      serviceType
+      serviceID
+      rsid
+      subsequentCallingPoints {
+        callingPointList {
+          locationName
+          crs
+          st
+          et
+        }
+      }
+      previousCallingPoints {
+        callingPointList {
+          locationName
+          crs
+          st
+          et
+        }
+      }
+      destination {
+        location {
+          locationName
+          crs
+        }
+      }
+      origin {
+        location {
+          locationName
+          crs
+        }
+      }
+      from {
+        sta
+        eta
+        std
+        etd
+        platform
+        crs
+        name
+      }
+      to {
+        sta
+        eta
+        std
+        etd
+        platform
+        crs
+        name
+      }
+    }
+  }
 }

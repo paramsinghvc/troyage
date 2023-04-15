@@ -7,16 +7,12 @@ type CallingPoint {
   et: String
 }
 
-type CallingPointList {
-  callingPoint: CallingPoint
-}
-
 type SubsequentCallingPoints {
-  callingPointList: CallingPointList
+  callingPointList: [CallingPoint!]
 }
 
 type PreviousCallingPoints {
-  callingPointList: CallingPointList
+  callingPointList: [CallingPoint!]
 }
 
 type Location {
@@ -47,10 +43,8 @@ type Service {
   previousCallingPoints: PreviousCallingPoints
   destination: Destination
   origin: Origin
-}
-
-type TrainServices {
-  service: [Service!]
+	from: Station
+	to: Station
 }
 
 type GetStationBoardResult {
@@ -58,7 +52,7 @@ type GetStationBoardResult {
   locationName: String
   crs: String
   platformAvailable: String
-  trainServices: TrainServices
+  trainServices: [Service!]
 }
 
 type DepartureDestination {
@@ -89,6 +83,26 @@ type GetServiceDetailsResponse {
   GetServiceDetailsResult: Service
 }
 
+type Station {
+	sta: String #Scheduled Time of Arrival
+  eta: String #Estimated Time of Arrival
+  std: String
+  etd: String
+  platform: String
+	crs: String!
+	name: String!
+}
+
+type GetTrainsResponse {
+	generatedAt: String
+	trainServices: [Service!]
+}
+
+type CRSCode {
+	name: String!
+	code: String!
+}
+
 # Inputs
 
 input BoardInput {
@@ -111,9 +125,12 @@ input ServiceInput {
 	serviceID: String!
 }
 
-type CRSCode {
-	name: String!
-	code: String!
+input TrainsQueryInput {
+	fromCRS: String
+	toCRS: String
+	numRows: Int
+	timeOffset: Int
+	timeWindow: Int
 }
 
 type Query {
@@ -129,4 +146,5 @@ type Query {
 	getFastestDeparturesWithDetails(payload: DepartureInput!): GetDeparturesBoardResponse!
 	getServiceDetails(payload: ServiceInput!): GetServiceDetailsResponse!
 	getCRSCodes: [CRSCode!]!
+	getTrains(payload: TrainsQueryInput!): GetTrainsResponse!
 }

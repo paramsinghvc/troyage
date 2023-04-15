@@ -526,4 +526,219 @@ class _CopyWithStubImpl$Input$ServiceInput<TRes>
   call({String? serviceID}) => _res;
 }
 
+class Input$TrainsQueryInput {
+  factory Input$TrainsQueryInput({
+    String? fromCRS,
+    String? toCRS,
+    int? numRows,
+    int? timeOffset,
+    int? timeWindow,
+  }) =>
+      Input$TrainsQueryInput._({
+        if (fromCRS != null) r'fromCRS': fromCRS,
+        if (toCRS != null) r'toCRS': toCRS,
+        if (numRows != null) r'numRows': numRows,
+        if (timeOffset != null) r'timeOffset': timeOffset,
+        if (timeWindow != null) r'timeWindow': timeWindow,
+      });
+
+  Input$TrainsQueryInput._(this._$data);
+
+  factory Input$TrainsQueryInput.fromJson(Map<String, dynamic> data) {
+    final result$data = <String, dynamic>{};
+    if (data.containsKey('fromCRS')) {
+      final l$fromCRS = data['fromCRS'];
+      result$data['fromCRS'] = (l$fromCRS as String?);
+    }
+    if (data.containsKey('toCRS')) {
+      final l$toCRS = data['toCRS'];
+      result$data['toCRS'] = (l$toCRS as String?);
+    }
+    if (data.containsKey('numRows')) {
+      final l$numRows = data['numRows'];
+      result$data['numRows'] = (l$numRows as int?);
+    }
+    if (data.containsKey('timeOffset')) {
+      final l$timeOffset = data['timeOffset'];
+      result$data['timeOffset'] = (l$timeOffset as int?);
+    }
+    if (data.containsKey('timeWindow')) {
+      final l$timeWindow = data['timeWindow'];
+      result$data['timeWindow'] = (l$timeWindow as int?);
+    }
+    return Input$TrainsQueryInput._(result$data);
+  }
+
+  Map<String, dynamic> _$data;
+
+  String? get fromCRS => (_$data['fromCRS'] as String?);
+  String? get toCRS => (_$data['toCRS'] as String?);
+  int? get numRows => (_$data['numRows'] as int?);
+  int? get timeOffset => (_$data['timeOffset'] as int?);
+  int? get timeWindow => (_$data['timeWindow'] as int?);
+  Map<String, dynamic> toJson() {
+    final result$data = <String, dynamic>{};
+    if (_$data.containsKey('fromCRS')) {
+      final l$fromCRS = fromCRS;
+      result$data['fromCRS'] = l$fromCRS;
+    }
+    if (_$data.containsKey('toCRS')) {
+      final l$toCRS = toCRS;
+      result$data['toCRS'] = l$toCRS;
+    }
+    if (_$data.containsKey('numRows')) {
+      final l$numRows = numRows;
+      result$data['numRows'] = l$numRows;
+    }
+    if (_$data.containsKey('timeOffset')) {
+      final l$timeOffset = timeOffset;
+      result$data['timeOffset'] = l$timeOffset;
+    }
+    if (_$data.containsKey('timeWindow')) {
+      final l$timeWindow = timeWindow;
+      result$data['timeWindow'] = l$timeWindow;
+    }
+    return result$data;
+  }
+
+  CopyWith$Input$TrainsQueryInput<Input$TrainsQueryInput> get copyWith =>
+      CopyWith$Input$TrainsQueryInput(
+        this,
+        (i) => i,
+      );
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other is Input$TrainsQueryInput) ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$fromCRS = fromCRS;
+    final lOther$fromCRS = other.fromCRS;
+    if (_$data.containsKey('fromCRS') != other._$data.containsKey('fromCRS')) {
+      return false;
+    }
+    if (l$fromCRS != lOther$fromCRS) {
+      return false;
+    }
+    final l$toCRS = toCRS;
+    final lOther$toCRS = other.toCRS;
+    if (_$data.containsKey('toCRS') != other._$data.containsKey('toCRS')) {
+      return false;
+    }
+    if (l$toCRS != lOther$toCRS) {
+      return false;
+    }
+    final l$numRows = numRows;
+    final lOther$numRows = other.numRows;
+    if (_$data.containsKey('numRows') != other._$data.containsKey('numRows')) {
+      return false;
+    }
+    if (l$numRows != lOther$numRows) {
+      return false;
+    }
+    final l$timeOffset = timeOffset;
+    final lOther$timeOffset = other.timeOffset;
+    if (_$data.containsKey('timeOffset') !=
+        other._$data.containsKey('timeOffset')) {
+      return false;
+    }
+    if (l$timeOffset != lOther$timeOffset) {
+      return false;
+    }
+    final l$timeWindow = timeWindow;
+    final lOther$timeWindow = other.timeWindow;
+    if (_$data.containsKey('timeWindow') !=
+        other._$data.containsKey('timeWindow')) {
+      return false;
+    }
+    if (l$timeWindow != lOther$timeWindow) {
+      return false;
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode {
+    final l$fromCRS = fromCRS;
+    final l$toCRS = toCRS;
+    final l$numRows = numRows;
+    final l$timeOffset = timeOffset;
+    final l$timeWindow = timeWindow;
+    return Object.hashAll([
+      _$data.containsKey('fromCRS') ? l$fromCRS : const {},
+      _$data.containsKey('toCRS') ? l$toCRS : const {},
+      _$data.containsKey('numRows') ? l$numRows : const {},
+      _$data.containsKey('timeOffset') ? l$timeOffset : const {},
+      _$data.containsKey('timeWindow') ? l$timeWindow : const {},
+    ]);
+  }
+}
+
+abstract class CopyWith$Input$TrainsQueryInput<TRes> {
+  factory CopyWith$Input$TrainsQueryInput(
+    Input$TrainsQueryInput instance,
+    TRes Function(Input$TrainsQueryInput) then,
+  ) = _CopyWithImpl$Input$TrainsQueryInput;
+
+  factory CopyWith$Input$TrainsQueryInput.stub(TRes res) =
+      _CopyWithStubImpl$Input$TrainsQueryInput;
+
+  TRes call({
+    String? fromCRS,
+    String? toCRS,
+    int? numRows,
+    int? timeOffset,
+    int? timeWindow,
+  });
+}
+
+class _CopyWithImpl$Input$TrainsQueryInput<TRes>
+    implements CopyWith$Input$TrainsQueryInput<TRes> {
+  _CopyWithImpl$Input$TrainsQueryInput(
+    this._instance,
+    this._then,
+  );
+
+  final Input$TrainsQueryInput _instance;
+
+  final TRes Function(Input$TrainsQueryInput) _then;
+
+  static const _undefined = {};
+
+  TRes call({
+    Object? fromCRS = _undefined,
+    Object? toCRS = _undefined,
+    Object? numRows = _undefined,
+    Object? timeOffset = _undefined,
+    Object? timeWindow = _undefined,
+  }) =>
+      _then(Input$TrainsQueryInput._({
+        ..._instance._$data,
+        if (fromCRS != _undefined) 'fromCRS': (fromCRS as String?),
+        if (toCRS != _undefined) 'toCRS': (toCRS as String?),
+        if (numRows != _undefined) 'numRows': (numRows as int?),
+        if (timeOffset != _undefined) 'timeOffset': (timeOffset as int?),
+        if (timeWindow != _undefined) 'timeWindow': (timeWindow as int?),
+      }));
+}
+
+class _CopyWithStubImpl$Input$TrainsQueryInput<TRes>
+    implements CopyWith$Input$TrainsQueryInput<TRes> {
+  _CopyWithStubImpl$Input$TrainsQueryInput(this._res);
+
+  TRes _res;
+
+  call({
+    String? fromCRS,
+    String? toCRS,
+    int? numRows,
+    int? timeOffset,
+    int? timeWindow,
+  }) =>
+      _res;
+}
+
 const possibleTypesMap = {};

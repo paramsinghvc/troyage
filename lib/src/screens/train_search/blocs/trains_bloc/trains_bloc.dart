@@ -19,23 +19,25 @@ class TrainsBloc extends Bloc<TrainsEvent, TrainsState> {
   }
 
   void _onTrainsRequested(TrainsRequested event, Emitter<TrainsState> emit) async {
-    emit(const TrainsState.loading());
+    emit(state.loading());
     try {
-      final data = await trainsService.getTrainsList(event.payload);
+      final data = await trainsService.getTrainsList(inputData: event.payload, direction: event.direction);
       if (data != null) {
         add(TrainsSucceeded(data));
       }
     } catch (e) {
+      print(e);
+      throw e;
       add(TrainsFailed(e.toString()));
     }
   }
 
   void _onTrainsSucceeded(TrainsSucceeded event, Emitter<TrainsState> emit) {
-    emit(TrainsState.success(event.data));
+    emit(state.success(event.data));
   }
 
   void _onTrainsFailed(TrainsFailed event, Emitter<TrainsState> emit) {
-    emit(TrainsState.failure(event.errorMessage));
+    emit(state.failure(event.errorMessage));
   }
 
   void _onSetFromCRS(SetFromCRS event, Emitter<TrainsState> emit) {
