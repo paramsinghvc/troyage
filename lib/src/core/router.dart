@@ -15,10 +15,11 @@ final GoRouter router = GoRouter(
       },
       routes: <RouteBase>[
         GoRoute(
-          path: 'trainDetails/:trainId',
+          path: 'trainDetails/:index',
           name: 'trainDetails',
           builder: (BuildContext context, GoRouterState state) {
-            return const TrainDetails();
+            assert(state.params['index'] != null, "index parameter must not be null");
+            return TrainDetails(index: int.parse(state.params["index"]!));
           },
         ),
         GoRoute(

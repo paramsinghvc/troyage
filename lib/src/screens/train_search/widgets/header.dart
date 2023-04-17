@@ -78,28 +78,38 @@ class _HeaderState extends State<Header> with SingleTickerProviderStateMixin {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         line,
-                        GestureDetector(
-                          onTap: () {
-                            stationAnimationController.forward();
-                            // stationAnimationController.status == AnimationStatus.completed
-                            //     ? stationAnimationController.reverse()
-                            //     : stationAnimationController.forward();
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(color: Colors.white.withOpacity(0.3)),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Transform.rotate(
-                                angle: 90 * pi / 180,
-                                child: SvgPicture.asset(
-                                  'assets/images/exchange.svg',
-                                  colorFilter: ColorFilter.mode(Colors.white.withOpacity(0.7), BlendMode.srcIn),
+                        Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(color: Colors.white.withOpacity(0.3)),
+                          ),
+                          child: BlocBuilder<TrainsBloc, TrainsState>(
+                            builder: (context, state) {
+                              final shouldBeEnabled = state.fromCRS != null && state.toCRS != null;
+                              return Semantics(
+                                enabled: shouldBeEnabled,
+                                button: true,
+                                focusable: shouldBeEnabled,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    if (shouldBeEnabled) stationAnimationController.forward();
+                                  },
+                                  child: Focus(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Transform.rotate(
+                                        angle: 90 * pi / 180,
+                                        child: SvgPicture.asset(
+                                          'assets/images/exchange.svg',
+                                          colorFilter: ColorFilter.mode(
+                                              Colors.white.withOpacity(shouldBeEnabled ? 0.8 : 0.3), BlendMode.srcIn),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
+                              );
+                            },
                           ),
                         ),
                         line,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:troyage/schema.graphql.dart';
 import 'package:troyage/src/screens/train_search/widgets/train_item.dart';
 import 'blocs/trains_bloc/trains.service.dart';
@@ -26,16 +27,13 @@ class TrainsSearch extends StatelessWidget {
               final doCRSExist = state.fromCRS ?? state.toCRS;
               final fromCRS = state.fromCRS?.code;
               final toCRS = state.toCRS?.code;
-              final bothExist = fromCRS != null && toCRS != null;
+
               if (doCRSExist != null) {
-                final payload = Input$BoardInput(
-                  crs: doCRSExist.code,
-                  filterCrs: bothExist ? toCRS : null,
-                  filterType: bothExist ? 'to' : null,
+                final payload = Input$TrainsQueryInput(
+                  fromCRS: fromCRS,
+                  toCRS: toCRS,
                 );
-                context
-                    .read<TrainsBloc>()
-                    .add(TrainsRequested(payload, fromCRS != null ? TrainDirection.dep : TrainDirection.arr));
+                context.read<TrainsBloc>().add(TrainsRequested(payload));
               }
             },
             builder: (context, state) {
@@ -94,8 +92,13 @@ class TrainsSearch extends StatelessWidget {
                       padding: const EdgeInsets.all(20),
                       itemCount: trainServices.length ?? 0,
                       separatorBuilder: (context, index) => const SizedBox(height: 10),
-                      itemBuilder: (context, index) => TrainItem(
-                          trainServiceData: trainServices.elementAt(index), from: state.fromCRS, to: state.toCRS),
+                      itemBuilder: (context, index) => GestureDetector(
+                        onTap: () {
+                          context.pushNamed('trainDetails', params: {'index': index.toString()});
+                        },
+                        child: TrainItem(
+                            trainServiceData: trainServices.elementAt(index), from: state.fromCRS, to: state.toCRS),
+                      ),
                     ));
                   }
                 default:

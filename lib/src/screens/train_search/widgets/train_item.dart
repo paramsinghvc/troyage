@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:troyage/src/screens/train_search/queries/crs_codes.query.graphql.dart';
 import 'package:troyage/src/screens/train_search/queries/trains.query.graphql.dart';
 
-typedef TrainServiceData = Query$GetDepBoardWithDetails$getDepBoardWithDetails$GetStationBoardResult$trainServices;
+typedef TrainServiceData = Query$GetTrains$getTrains$trainServices;
 
 class TrainItem extends StatelessWidget {
   final TrainServiceData? trainServiceData;
@@ -32,9 +32,9 @@ class TrainItem extends StatelessWidget {
                   children: [
                     renderStationItem(
                       context,
-                      time: trainServiceData?.std,
-                      stationName: (from?.name ?? trainServiceData?.origin?.location?.locationName) ?? '',
-                      platformNumber: 1,
+                      time: trainServiceData?.from?.sta ?? trainServiceData?.from?.std,
+                      stationName: trainServiceData?.from?.name ?? '',
+                      platformNumber: trainServiceData?.from?.platform ?? '-',
                     ),
                     const SizedBox(width: 20),
                     // Icon(
@@ -48,9 +48,9 @@ class TrainItem extends StatelessWidget {
                     const SizedBox(width: 20),
                     renderStationItem(
                       context,
-                      time: trainServiceData?.sta,
-                      stationName: (to?.name ?? trainServiceData?.destination?.location?.locationName) ?? '',
-                      platformNumber: 6,
+                      time: trainServiceData?.to?.sta ?? trainServiceData?.to?.std,
+                      stationName: trainServiceData?.to?.name ?? '',
+                      platformNumber: trainServiceData?.to?.platform ?? '-',
                       isOrigin: false,
                     ),
                   ],
@@ -111,7 +111,7 @@ class TrainItem extends StatelessWidget {
     context, {
     String? time,
     required String stationName,
-    required int platformNumber,
+    required String platformNumber,
     bool isOrigin = true,
   }) {
     final crossAxisAlignment = isOrigin ? CrossAxisAlignment.start : CrossAxisAlignment.end;

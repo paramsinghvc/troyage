@@ -21,14 +21,14 @@ class TrainsBloc extends Bloc<TrainsEvent, TrainsState> {
   void _onTrainsRequested(TrainsRequested event, Emitter<TrainsState> emit) async {
     emit(state.loading());
     try {
-      final data = await trainsService.getTrainsList(inputData: event.payload, direction: event.direction);
+      final data = await trainsService.getTrainsList(inputData: event.payload);
       if (data != null) {
         add(TrainsSucceeded(data));
       }
     } catch (e) {
       print(e);
-      throw e;
       add(TrainsFailed(e.toString()));
+      throw e;
     }
   }
 

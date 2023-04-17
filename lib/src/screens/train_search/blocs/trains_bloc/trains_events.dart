@@ -8,10 +8,9 @@ abstract class TrainsEvent extends Equatable {
 }
 
 class TrainsRequested extends TrainsEvent {
-  final Input$BoardInput payload;
-  final TrainDirection direction;
+  final Input$TrainsQueryInput payload;
 
-  const TrainsRequested(this.payload, this.direction);
+  const TrainsRequested(this.payload);
 }
 
 class TrainsSucceeded extends TrainsEvent {

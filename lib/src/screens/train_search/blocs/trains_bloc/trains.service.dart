@@ -4,7 +4,7 @@ import '../../../../../schema.graphql.dart';
 import '../../../../core/graphql_client.dart';
 import '../../queries/trains.query.graphql.dart';
 
-typedef TrainsData = Query$GetDepBoardWithDetails$getDepBoardWithDetails$GetStationBoardResult;
+typedef TrainsData = Query$GetTrains$getTrains;
 
 enum TrainDirection {
   arr("Arr"),
@@ -19,56 +19,69 @@ class TrainsService {
 
   TrainsService({TroyageGQLClient? client}) : _client = client ?? TroyageGQLClient();
 
-  Future<TrainsData?> getTrainsList({required Input$BoardInput inputData, required TrainDirection direction}) async {
-    final String getTrainsQuery = '''
-      query Get${direction.text}BoardWithDetails(\$payload: BoardInput!) {
-        get${direction.text}BoardWithDetails(payload: \$payload) {
-          GetStationBoardResult {
-            generatedAt
-            locationName
-            crs
-            platformAvailable
-            trainServices {
-                sta
-                eta
-                std
-                etd
-                platform
-                operator
-                operatorCode
-                serviceType
-                serviceID
-                rsid
-                subsequentCallingPoints {
-                  callingPointList {
-                      locationName
-                      crs
-                      st
-                      et								
-                  }
-                }
-                previousCallingPoints {
-                  callingPointList {
-                      locationName
-                      crs
-                      st
-                      et								
-                  }
-                }
-                destination {
-                  location {
-                    locationName
-                    crs
-                  }
-                }
-                origin {
-                  location {
-                    locationName
-                    crs
-                  }
-                }
+  Future<TrainsData?> getTrainsList({required Input$TrainsQueryInput inputData}) async {
+    const String getTrainsQuery = '''
+      query GetTrains(\$payload: TrainsQueryInput!) {
+        getTrains(payload: \$payload) {
+          generatedAt
+          trainServices {
+            sta
+            eta
+            std
+            etd
+            platform
+            operator
+            operatorCode
+            serviceType
+            serviceID
+            rsid
+            subsequentCallingPoints {
+              callingPointList {
+                locationName
+                crs
+                st
+                et
               }
             }
+            previousCallingPoints {
+              callingPointList {
+                locationName
+                crs
+                st
+                et
+              }
+            }
+            destination {
+              location {
+                locationName
+                crs
+              }
+            }
+            origin {
+              location {
+                locationName
+                crs
+              }
+            }
+            from {
+              sta
+              eta
+              std
+              etd
+              platform
+              crs
+              name
+            }
+            to {
+              sta
+              eta
+              std
+              etd
+              platform
+              crs
+              name
+            }
+          }
         }
       }
     ''';
@@ -82,8 +95,8 @@ class TrainsService {
     }
 
     if (result.data != null) {
-      final data = Query$GetDepBoardWithDetails.fromJson(result.data!);
-      return data.getDepBoardWithDetails.GetStationBoardResult;
+      final data = Query$GetTrains.fromJson(result.data!);
+      return data.getTrains;
     }
 
     return null;
