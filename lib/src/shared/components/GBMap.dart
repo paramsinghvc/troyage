@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 
 class GBMap extends StatelessWidget {
   final Alignment? alignment;
-  const GBMap({
-    super.key,
-    this.alignment = Alignment.centerRight,
-  });
+  final double? opacity;
+  const GBMap({super.key, this.alignment = Alignment.centerRight, this.opacity = 1});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +14,7 @@ class GBMap extends StatelessWidget {
         child: SizedBox(
           height: 240,
           child: Opacity(
-            opacity: 1,
+            opacity: opacity ?? 1,
             child: Image.asset(
               'assets/images/gb_map.png',
             ),

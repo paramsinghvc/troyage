@@ -7,6 +7,7 @@ import 'package:collection/collection.dart';
 
 import 'package:troyage/src/screens/train_search/blocs/trains_bloc/trains_bloc.dart';
 import 'package:troyage/src/screens/train_search/queries/trains.query.graphql.dart';
+import 'package:troyage/src/shared/components/GBMap.dart';
 
 typedef TrainsSelectedState = Query$GetTrains$getTrains$trainServices?;
 
@@ -18,67 +19,76 @@ class TrainDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
         body: SafeArea(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 20.0, top: 20.0),
-            child: IconButton(
-              onPressed: () {
-                context.pop();
-              },
-              icon: const Icon(
-                Icons.keyboard_backspace,
-                // color: Colors.white,
+          child: Stack(
+            children: [
+              const GBMap(
+                alignment: Alignment.centerRight,
+                opacity: 0.3,
               ),
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
-              child: BlocSelector<TrainsBloc, TrainsState, TrainsSelectedState>(
-                selector: (state) => state.data?.trainServices?.elementAt(index),
-                builder: (context, state) => Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Row(
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20.0, top: 20.0),
+                    child: IconButton(
+                      onPressed: () {
+                        context.pop();
+                      },
+                      icon: const Icon(
+                        Icons.keyboard_backspace,
+                        // color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                      child: BlocSelector<TrainsBloc, TrainsState, TrainsSelectedState>(
+                        selector: (state) => state.data?.trainServices?.elementAt(index),
+                        builder: (context, state) => Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Icon(Icons.train_outlined, size: 35),
-                            const SizedBox(width: 10),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            const SizedBox(height: 10),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text(
-                                  state?.$operator ?? '',
-                                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                                Row(
+                                  children: [
+                                    const Icon(Icons.train_outlined, size: 35),
+                                    const SizedBox(width: 10),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          state?.$operator ?? '',
+                                          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                                        ),
+                                        Text('to ${state?.to?.name}'),
+                                      ],
+                                    ),
+                                  ],
                                 ),
-                                Text('to ${state?.to?.name}'),
+                                ConstrainedBox(
+                                  constraints: const BoxConstraints(minHeight: 30, maxHeight: 50),
+                                  child: Image.asset('assets/images/trainOperators/${state?.operatorCode ?? 'NR'}.png'),
+                                ),
                               ],
                             ),
+                            const SizedBox(height: 10),
+                            Expanded(child: renderStationsTimeline(context, state))
                           ],
                         ),
-                        ConstrainedBox(
-                          constraints: const BoxConstraints(minHeight: 30, maxHeight: 50),
-                          child: Image.asset('assets/images/trainOperators/${state?.operatorCode ?? 'NR'}.png'),
-                        ),
-                      ],
+                      ),
                     ),
-                    const SizedBox(height: 10),
-                    Expanded(child: renderStationsTimeline(context, state))
-                  ],
-                ),
-              ),
-            ),
-          )
-        ],
-      ),
-    ));
+                  )
+                ],
+              )
+            ],
+          ),
+        ));
   }
 
   Widget renderStationsTimeline(BuildContext context, TrainsSelectedState state) {
