@@ -37,6 +37,7 @@ dependencies:
     sdk: flutter
   flutter_bloc: ^8.1.2
   flutter_launcher_icons: ^0.13.0
+  flutter_native_splash: ^2.2.19
   flutter_staggered_animations: ^1.1.1
   flutter_svg: ^2.0.4
   fuzzy: 0.4.0-nullsafety.0
@@ -113,3 +114,12 @@ flutter_icons:
   macos:
     generate: true
     image_path: "assets/images/logo/web/icon-512.png"
+
+flutter_native_splash:
+  color: "#536DFE"
+  color_dark: "#536DFE"
+  image: assets/images/logo/android/res/mipmap-xxxhdpi/ic_launcher_foreground.png
+  android_12:
+    image: assets/images/logo/android/res/mipmap-xxxhdpi/ic_launcher_foreground.png
+    icon_background_color: "#536DFE"
+  web: true
