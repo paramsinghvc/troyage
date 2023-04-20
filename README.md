@@ -31,10 +31,10 @@
 <br />
 <div align="center">
   <a href="./assets/images/logo/web/icon-512.png">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="./assets/images/logo/web/icon-512.png" alt="Logo" width="140" height="140">
   </a>
 
-  <h3 align="center">Troyage</h3>
+  <h3 align="center">Troyage App</h3>
 
   <p align="center">
     A Flutter app to find trains in the UK using National Rail Soap API proxied through an ExpressJS GraphQL server.
