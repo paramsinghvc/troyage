@@ -228,18 +228,18 @@ Use this space to list resources you find helpful and would like to give credit 
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
+[contributors-shield]: https://img.shields.io/github/contributors/paramsinghvc/troyage.svg?style=for-the-badge
 [contributors-url]: https://github.com/paramsinghvc/troyage/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
+[forks-shield]: https://img.shields.io/github/forks/paramsinghvc/troyage.svg?style=for-the-badge
 [forks-url]: https://github.com/paramsinghvc/troyage/network/members
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
+[stars-shield]: https://img.shields.io/github/stars/paramsinghvc/troyage.svg?style=for-the-badge
 [stars-url]: https://github.com/paramsinghvc/troyage/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
+[issues-shield]: https://img.shields.io/github/issues/paramsinghvc/troyage.svg?style=for-the-badge
 [issues-url]: https://github.com/paramsinghvc/troyage/issues
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/paramsinghvc/troyage.svg?style=for-the-badge
 [license-url]: https://github.com/paramsinghvc/troyage/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/othneildrew
+[linkedin-url]: https://www.linkedin.com/in/paramsinghvc/
 [product-screenshot]: https://user-images.githubusercontent.com/4329912/233230902-c8f383a2-4de9-4a7c-a808-9c8d6f107045.mp4
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
