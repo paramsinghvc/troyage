@@ -30,6 +30,22 @@ class TrainsState extends Equatable {
 
   TrainsState failure(String errorMessage) => copyWith(status: TrainsStatus.failure, errorMessage: errorMessage);
 
+  TrainsState setCRS({
+    final Query$GetCRSCodes$getCRSCodes? fromCRS,
+    final Query$GetCRSCodes$getCRSCodes? toCRS,
+  }) {
+    return TrainsState._(
+      status: status,
+      data: data,
+      errorMessage: errorMessage,
+      fromCRS: fromCRS,
+      toCRS: toCRS,
+    );
+  }
+
+  TrainsState setFromCRS(Query$GetCRSCodes$getCRSCodes? fromCRS) => setCRS(fromCRS: fromCRS, toCRS: toCRS);
+  TrainsState setToCRS(Query$GetCRSCodes$getCRSCodes? toCRS) => setCRS(fromCRS: fromCRS, toCRS: toCRS);
+
   TrainsState copyWith({
     TrainsStatus? status,
     final TrainsData? data,

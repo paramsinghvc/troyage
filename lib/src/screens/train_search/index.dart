@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:troyage/schema.graphql.dart';
-import 'package:troyage/src/screens/train_search/widgets/train_item.dart';
+import '../../../schema.graphql.dart';
+import 'widgets/train_item.dart';
 import 'blocs/trains_bloc/trains.service.dart';
 import 'blocs/trains_bloc/trains_bloc.dart';
 
@@ -40,23 +40,22 @@ class TrainsSearch extends StatelessWidget {
               switch (state.status) {
                 case TrainsStatus.loading:
                   return const Center(
-                    child: SizedBox(
-                      height: 10.0,
-                      width: 10.0,
-                      child: Center(
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2.5,
-                        ),
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2.5,
                       ),
                     ),
                   );
                 case TrainsStatus.failure:
-                  return Center(
-                    child: Text(
-                      state.errorMessage ?? 'Some error occured',
-                      style: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 20.0,
+                  return const Center(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 40.0),
+                      child: Text(
+                        'Oops! Some error occured. Try chaging the search criteria above.',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 20.0,
+                        ),
                       ),
                     ),
                   );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:troyage/src/screens/train_search/queries/crs_codes.query.graphql.dart';
-import 'package:troyage/src/screens/train_search/queries/trains.query.graphql.dart';
+import '../queries/crs_codes.query.graphql.dart';
+import '../queries/trains.query.graphql.dart';
 
 typedef TrainServiceData = Query$GetTrains$getTrains$trainServices;
 
@@ -34,7 +34,7 @@ class TrainItem extends StatelessWidget {
                       context,
                       time: trainServiceData?.from?.sta ?? trainServiceData?.from?.std,
                       stationName: trainServiceData?.from?.name ?? '',
-                      platformNumber: trainServiceData?.from?.platform ?? '-',
+                      platformNumber: trainServiceData?.from?.platform,
                     ),
                     const SizedBox(width: 20),
                     // Icon(
@@ -50,13 +50,13 @@ class TrainItem extends StatelessWidget {
                       context,
                       time: trainServiceData?.to?.sta ?? trainServiceData?.to?.std,
                       stationName: trainServiceData?.to?.name ?? '',
-                      platformNumber: trainServiceData?.to?.platform ?? '-',
+                      platformNumber: trainServiceData?.to?.platform,
                       isOrigin: false,
                     ),
                   ],
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -111,7 +111,7 @@ class TrainItem extends StatelessWidget {
     context, {
     String? time,
     required String stationName,
-    required String platformNumber,
+    String? platformNumber,
     bool isOrigin = true,
   }) {
     final crossAxisAlignment = isOrigin ? CrossAxisAlignment.start : CrossAxisAlignment.end;
@@ -147,13 +147,14 @@ class TrainItem extends StatelessWidget {
               ),
             ],
           ),
-          Text(
-            'Plat $platformNumber',
-            style: TextStyle(
-              fontWeight: FontWeight.w500,
-              color: Colors.grey.shade500,
+          if (platformNumber != null)
+            Text(
+              'Plat $platformNumber',
+              style: TextStyle(
+                fontWeight: FontWeight.w500,
+                color: Colors.grey.shade500,
+              ),
             ),
-          ),
         ],
       ),
     );

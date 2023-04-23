@@ -41,11 +41,11 @@ class TrainsBloc extends Bloc<TrainsEvent, TrainsState> {
   }
 
   void _onSetFromCRS(SetFromCRS event, Emitter<TrainsState> emit) {
-    emit(state.copyWith(fromCRS: event.crs));
+    emit(state.setFromCRS(event.crs));
   }
 
   void _onSetToCRS(SetToCRS event, Emitter<TrainsState> emit) {
-    emit(state.copyWith(toCRS: event.crs));
+    emit(state.setToCRS(event.crs));
   }
 
   void _onSwapCRS(SwapCRS event, Emitter<TrainsState> emit) {

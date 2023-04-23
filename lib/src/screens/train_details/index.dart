@@ -1,13 +1,12 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:collection/collection.dart';
 
-import 'package:troyage/src/screens/train_search/blocs/trains_bloc/trains_bloc.dart';
-import 'package:troyage/src/screens/train_search/queries/trains.query.graphql.dart';
-import 'package:troyage/src/shared/components/GBMap.dart';
+import '../train_search/blocs/trains_bloc/trains_bloc.dart';
+import '../train_search/queries/trains.query.graphql.dart';
+import '../../shared/components/GBMap.dart';
 
 typedef TrainsSelectedState = Query$GetTrains$getTrains$trainServices?;
 
@@ -46,7 +45,13 @@ class TrainDetails extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 25.0),
                       child: BlocSelector<TrainsBloc, TrainsState, TrainsSelectedState>(
-                        selector: (state) => state.data?.trainServices?.elementAt(index),
+                        selector: (state) {
+                          final services = state.data?.trainServices;
+                          if (services == null) {
+                            context.pushNamed('home');
+                          }
+                          return services?.elementAt(index);
+                        },
                         builder: (context, state) => Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -57,7 +62,14 @@ class TrainDetails extends StatelessWidget {
                               children: [
                                 Row(
                                   children: [
-                                    const Icon(Icons.train_outlined, size: 35),
+                                    // const Icon(Icons.train_outlined, size: 35),
+                                    SizedBox(
+                                      child: SvgPicture.asset(
+                                        height: 40,
+                                        'assets/images/train_modern.svg',
+                                        colorFilter: ColorFilter.mode(Colors.grey.shade800, BlendMode.srcIn),
+                                      ),
+                                    ),
                                     const SizedBox(width: 10),
                                     Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,

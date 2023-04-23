@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:go_router/go_router.dart';
-import 'package:troyage/src/screens/train_search/blocs/trains_bloc/trains_bloc.dart';
+import '../blocs/trains_bloc/trains_bloc.dart';
+
 import '../../../core/graphql_client.dart';
+import '../../../shared/components/GBMap.dart';
 import '../blocs/crs_bloc/crs.service.dart';
 import '../blocs/crs_bloc/crs_bloc.dart';
 import '../queries/crs_codes.query.graphql.dart';
-import '../../../shared/components/GBMap.dart';
 
 enum StationDirection { from, to }
 
@@ -64,29 +65,41 @@ class StationSearch extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     Expanded(
-                                      child: TextField(
-                                        autofocus: true,
-                                        cursorColor: Colors.white,
-                                        textCapitalization: TextCapitalization.words,
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                        onChanged: (String query) {
-                                          context.read<CrsBloc>().add(CrsSearch(query));
+                                      child: BlocSelector<CrsBloc, CrsState, bool>(
+                                        selector: (state) {
+                                          return state.isLoading;
                                         },
-                                        decoration: InputDecoration(
-                                          hintText: 'Station name or code',
-                                          hintStyle: TextStyle(
-                                              color: Colors.white.withOpacity(0.3), fontWeight: FontWeight.w300),
-                                          enabledBorder: const UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                              width: 2,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ),
+                                        builder: (context, isLoading) {
+                                          if (!isLoading) {
+                                            return TextField(
+                                              autofocus: true,
+                                              enabled: !isLoading,
+                                              cursorColor: Colors.white,
+                                              textCapitalization: TextCapitalization.words,
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                              onChanged: (String query) {
+                                                context.read<CrsBloc>().add(CrsSearch(query));
+                                              },
+                                              decoration: InputDecoration(
+                                                hintText: 'Station name or code',
+                                                hintStyle: TextStyle(
+                                                    color: Colors.white.withOpacity(0.3), fontWeight: FontWeight.w300),
+                                                enabledBorder: const UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    width: 2,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          } else {
+                                            return const SizedBox(height: 30);
+                                          }
+                                        },
                                       ),
                                     ),
                                     IconButton(
@@ -108,13 +121,10 @@ class StationSearch extends StatelessWidget {
                                       switch (state.status) {
                                         case CrsStatus.loading:
                                           return const Center(
-                                            child: SizedBox(
-                                              height: 10.0,
-                                              width: 10.0,
-                                              child: Center(
-                                                child: CircularProgressIndicator(
-                                                  strokeWidth: 2.5,
-                                                ),
+                                            child: Center(
+                                              child: CircularProgressIndicator(
+                                                strokeWidth: 2.5,
+                                                color: Colors.white,
                                               ),
                                             ),
                                           );

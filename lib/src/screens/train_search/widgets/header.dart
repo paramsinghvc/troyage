@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:troyage/src/screens/train_search/blocs/trains_bloc/trains_bloc.dart';
+import '../blocs/trains_bloc/trains_bloc.dart';
 import 'station_inputs.dart';
 import '../../../shared/components/GBMap.dart';
 

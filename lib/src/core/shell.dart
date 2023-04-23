@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_framework/responsive_framework.dart';
-import 'package:troyage/src/screens/train_search/blocs/trains_bloc/trains.service.dart';
-import 'package:troyage/src/screens/train_search/blocs/trains_bloc/trains_bloc.dart';
+import '../screens/train_search/blocs/trains_bloc/trains.service.dart';
+import '../screens/train_search/blocs/trains_bloc/trains_bloc.dart';
 import 'graphql_client.dart';
 
 import 'router.dart';

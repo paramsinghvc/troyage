@@ -1,7 +1,11 @@
 import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:troyage/src/screens/train_search/widgets/station_search.dart';
+
+import '../blocs/trains_bloc/trains_bloc.dart';
+import 'station_search.dart';
 
 class Station {
   final String crs;
@@ -74,18 +78,38 @@ class StationInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        context.pushNamed('stationSearch', params: {'direction': direction.name});
-      },
-      child: Text(
-        name,
-        style: TextStyle(
-          fontSize: min(25 * 20 / textLength, 30),
-          color: Colors.white,
-          overflow: TextOverflow.ellipsis,
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        GestureDetector(
+          onTap: () {
+            context.pushNamed('stationSearch', params: {'direction': direction.name});
+          },
+          child: Text(
+            name,
+            style: TextStyle(
+              fontSize: min(25 * 20 / textLength, 30),
+              color: Colors.white,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
         ),
-      ),
+        const SizedBox(
+          width: 5,
+        ),
+        if (name.isNotEmpty && name != 'From' && name != 'To')
+          IconButton(
+            onPressed: () {
+              context.read<TrainsBloc>().add(
+                    direction == StationDirection.from ? const SetFromCRS(null) : const SetToCRS(null),
+                  );
+            },
+            icon: const Icon(
+              Icons.clear,
+              color: Colors.white,
+            ),
+          ),
+      ],
     );
   }
 }

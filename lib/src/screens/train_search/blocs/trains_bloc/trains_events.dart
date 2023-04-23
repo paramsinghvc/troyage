@@ -26,13 +26,13 @@ class TrainsFailed extends TrainsEvent {
 }
 
 class SetFromCRS extends TrainsEvent {
-  final Query$GetCRSCodes$getCRSCodes crs;
+  final Query$GetCRSCodes$getCRSCodes? crs;
 
   const SetFromCRS(this.crs);
 }
 
 class SetToCRS extends TrainsEvent {
-  final Query$GetCRSCodes$getCRSCodes crs;
+  final Query$GetCRSCodes$getCRSCodes? crs;
 
   const SetToCRS(this.crs);
 }

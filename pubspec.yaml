@@ -68,6 +68,7 @@ flutter:
     - assets/images/Train.svg
     - assets/images/departing_illustration.svg
     - assets/images/no_data.svg
+    - assets/images/train_modern.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
